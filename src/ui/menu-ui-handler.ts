@@ -254,21 +254,25 @@ export default class MenuUiHandler extends MessageUiHandler {
         },
         keepOpen: true
       },
-      {
+    );
+
+    if(import.meta.env.VITE_ALLOW_CHEATS === "1") {
+      manageDataOptions.push({
         label: "Unlock All",
         handler: () => {
           unlockAll(this.scene);
           return true;
         }
-      },
-      {
-        label: i18next.t("menuUiHandler:cancel"),
-        handler: () => {
-          this.scene.ui.revertMode();
-          return true;
-        }
+      });
+    }
+
+    manageDataOptions.push({
+      label: i18next.t("menuUiHandler:cancel"),
+      handler: () => {
+        this.scene.ui.revertMode();
+        return true;
       }
-    );
+    });
 
     this.manageDataConfig = {
       xOffset: 98,
